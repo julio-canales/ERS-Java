@@ -3,7 +3,7 @@
 ********************************************************************************/
 CREATE TABLE "ers_reimbursement" (
 	"reimb_id" SERIAL NOT NULL,
-	"reimb_amount" INT NOT NULL,
+	"reimb_amount" NUMERIC(8, 2) NOT NULL,
 	"reimb_submitted" TIMESTAMP NOT NULL,
 	"reimb_resolved" TIMESTAMP,
 	"reimb_description" VARCHAR(250),
@@ -11,7 +11,7 @@ CREATE TABLE "ers_reimbursement" (
 	"reimb_author" INT NOT NULL,
 	"reimb_resolver" INT,
 	"reimb_status_id" INT NOT NULL,
-	"reimb_type_id" INT NOT NULL,
+	"reimb_type_id" INT,
 	CONSTRAINT "ers_reimbursement_pk" PRIMARY KEY ("reimb_id")
 );
 
