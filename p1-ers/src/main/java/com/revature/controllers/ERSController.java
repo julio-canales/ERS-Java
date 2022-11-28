@@ -15,7 +15,7 @@ public class ERSController {
 		logger.info("User is requesting to register...");
 		//1. get info from request body
 		//2. map to object
-		//3. check that the username isn't already in the system
+		//3. check that the username isn't already in the system (move to service?)
 		//4. service call (boolean)
 		//5. render response
 	};
@@ -45,7 +45,7 @@ public class ERSController {
 		//4. render response
 	};
 	
-	public static Handler mangProcess = ctx -> {
+	public static Handler managerProcess = ctx -> {
 		logger.info("User attempting to process request...");
 		//1. get reimbursement info from request body
 		//2. map to an object

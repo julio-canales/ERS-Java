@@ -46,6 +46,7 @@ public class MainApp {
 			logger.info("ERS App testing GET request.");
 			ctx.html("Welcome to the ERS app.");
 		});
+		//View tickets, manager view or employee view depends on ID
 		app.get("{id}/view", ERSController.view);
 		
 		
@@ -55,6 +56,6 @@ public class MainApp {
 		app.post("/submit", ERSController.newReimb);
 		
 		//PUT Methods
-		app.put("/process", ERSController.mangProcess);
+		app.put("/process", ERSController.managerProcess);
 	}
 }

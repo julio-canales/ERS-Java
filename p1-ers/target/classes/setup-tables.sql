@@ -3,10 +3,10 @@
 ********************************************************************************/
 CREATE TABLE "ers_reimbursement" (
 	"reimb_id" SERIAL NOT NULL,
-	"reimb_amount" INT NOT NULL,
+	"reimb_amount" NUMERIC(8, 2) NOT NULL,
 	"reimb_submitted" TIMESTAMP NOT NULL,
 	"reimb_resolved" TIMESTAMP,
-	"reimb_description" VARCHAR(250),
+	"reimb_description" VARCHAR(250) NOT NULL,
 	"reimb_receipt" bytea,
 	"reimb_author" INT NOT NULL,
 	"reimb_resolver" INT,

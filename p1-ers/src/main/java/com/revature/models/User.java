@@ -2,6 +2,8 @@ package com.revature.models;
 
 import java.util.Objects;
 
+import com.revature.util.DatabaseId;
+
 //Model class for a User object with fields matching ers_users table 
 public class User {
 	
@@ -11,7 +13,7 @@ public class User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String role;
+	private int role;
 	
 	public User() {
 		super();
@@ -25,6 +27,8 @@ public class User {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		
+		this.id = DatabaseId.EMPLOYEE;
 	}
 
 	public int getId() {
@@ -75,11 +79,11 @@ public class User {
 		this.email = email;
 	}
 
-	public String getRole() {
+	public int getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(int role) {
 		this.role = role;
 	}
 

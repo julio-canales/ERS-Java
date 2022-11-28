@@ -22,18 +22,6 @@ public class ReimburseTicket {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	//Most basic fields for the ticket
-	//Submitted is when the ticket is created and status is Pending
-	public ReimburseTicket(double amount, String description, int authorId) {
-		super();
-		this.amount = amount;
-		this.description = description;
-		this.authorId = authorId;
-		
-		this.submitted = LocalDate.now();
-		this.statusId = DatabaseId.PENDING;
-	}
 
 	public ReimburseTicket(double amount, LocalDate submitted, String description, int authorId, int typeId) {
 		super();
