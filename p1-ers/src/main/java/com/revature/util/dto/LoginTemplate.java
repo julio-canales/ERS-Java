@@ -1,6 +1,6 @@
-package com.revature.models;
+package com.revature.util.dto;
 
-//Class for converting HTTP login requests into an object
+//Utility class for mapping the JSON from login attempts
 public class LoginTemplate {
 	
 	String username;

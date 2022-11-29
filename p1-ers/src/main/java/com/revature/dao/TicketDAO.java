@@ -3,15 +3,8 @@ package com.revature.dao;
 import java.util.ArrayList;
 
 import com.revature.models.ReimburseTicket;
-import com.revature.models.User;
 
-public interface ERSDAO {
-	
-	int createUser(User user);
-	
-	User getUserById(int id);
-	
-	User getUserByUsername(String username);
+public interface TicketDAO {
 	
 	int createTicket (ReimburseTicket rt);
 	

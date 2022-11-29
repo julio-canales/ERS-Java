@@ -15,8 +15,8 @@ public class ERSController {
 		logger.info("User is requesting to register...");
 		//1. get info from request body
 		//2. map to object
-		//3. check that the username isn't already in the system (move to service?)
-		//4. service call (boolean)
+		//3. form verification
+		//4. service call (registerUser)
 		//5. render response
 	};
 	
@@ -24,32 +24,35 @@ public class ERSController {
 		logger.info("User is attempting to log in...");
 		//1. get info from request body
 		//2. map to object
-		//3. service call (boolean)
-		//4. render response
+		//3. service call (loginUser)
+		//4. render response w/ Cookie
 	};
 	
 	public static Handler newReimb = ctx -> {
 		logger.info("User is attempting to submit new reimbursement request...");
-		//1. get info from request body
-		//2. map to object
-		//3. service call (boolean)
-		//4. render response
+		//1. get user from cookie
+		//2. get info from request body
+		//3. map to object
+		//4. form verification
+		//5. service call (newTicket)
+		//6. render response
 	};
 	
 	public static Handler view = ctx -> {
 		logger.info("User attempting to view requests...");
-		//1. get employee's id from url
-		//2. check role
-		//3. diff service call depending on role
+		//1. make sure user is valid from cookie
+		//2. generate response based on role
 		//		- managers see all, employees only see theirs
 		//4. render response
 	};
 	
 	public static Handler managerProcess = ctx -> {
 		logger.info("User attempting to process request...");
-		//1. get reimbursement info from request body
-		//2. map to an object
-		//3. do an update service call
-		//4. render response
+		//1. get user from username in cookie & make sure it's a manager
+		//2. get reimbursement info from request body
+		//3. map to an object
+		//4. verify the ticket ID is one that is pending
+		//5. service call (processTicket)
+		//6. render response
 	};
 }

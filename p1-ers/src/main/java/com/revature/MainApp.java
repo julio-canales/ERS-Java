@@ -46,8 +46,10 @@ public class MainApp {
 			logger.info("ERS App testing GET request.");
 			ctx.html("Welcome to the ERS app.");
 		});
+		
 		//View tickets, manager view or employee view depends on ID
-		app.get("{id}/view", ERSController.view);
+		app.get("/view", ERSController.view);
+		// view/pending ? 
 		
 		
 		//POST Methods
