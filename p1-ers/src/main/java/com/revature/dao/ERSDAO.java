@@ -21,7 +21,7 @@ public interface ERSDAO {
 	
 	ArrayList<ReimburseTicket> getTicketsByStatus(int statusId);
 	
-	ArrayList<ReimburseTicket> getTicketsByUser(int userId);
+	ArrayList<ReimburseTicket> getTicketsByAuthor(int userId);
 	
-	boolean updateTicket (ReimburseTicket rt);
+	boolean resolveTicket (ReimburseTicket rt);
 }

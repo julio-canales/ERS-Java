@@ -1,6 +1,6 @@
 package com.revature.models;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.revature.util.DatabaseId;
@@ -9,8 +9,8 @@ import com.revature.util.DatabaseId;
 public class ReimburseTicket {
 	private int id;
 	private double amount;
-	private LocalDate submitted;
-	private LocalDate resolved;
+	private LocalDateTime submitted;
+	private LocalDateTime resolved;
 	private String description;
 	//receipt
 	private int authorId;
@@ -23,14 +23,14 @@ public class ReimburseTicket {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReimburseTicket(double amount, LocalDate submitted, String description, int authorId, int typeId) {
+	public ReimburseTicket(double amount, LocalDateTime submitted, String description, int authorId, int typeId) {
 		super();
 		this.amount = amount;
 		this.description = description;
 		this.authorId = authorId;
 		this.typeId = typeId;
 		
-		this.submitted = LocalDate.now();
+		this.submitted = LocalDateTime.now();
 		this.statusId = DatabaseId.PENDING;
 	}
 
@@ -50,19 +50,19 @@ public class ReimburseTicket {
 		this.amount = amount;
 	}
 
-	public LocalDate getSubmitted() {
+	public LocalDateTime getSubmitted() {
 		return submitted;
 	}
 
-	public void setSubmitted(LocalDate submitted) {
+	public void setSubmitted(LocalDateTime submitted) {
 		this.submitted = submitted;
 	}
 
-	public LocalDate getResolved() {
+	public LocalDateTime getResolved() {
 		return resolved;
 	}
 
-	public void setResolved(LocalDate resolved) {
+	public void setResolved(LocalDateTime resolved) {
 		this.resolved = resolved;
 	}
 
