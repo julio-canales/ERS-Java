@@ -12,4 +12,6 @@ public interface UserDAO {
 	User getUserByUsername(String username);
 	
 	ArrayList<User> getUsers();
+	
+	boolean promoteUserToManager(int id);
 }

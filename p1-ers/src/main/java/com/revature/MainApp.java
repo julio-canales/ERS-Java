@@ -9,18 +9,19 @@ import io.javalin.Javalin;
 
 /*
  * Functionality Implemented:
- * 
- * 
- * Required Functionality To-Do:
  * 		-Login: username & password input
  * 		-Register: check username isn't taken
  * 		-Submit Ticket (Employee): at least amount & description
  * 		-Process Tickets (Manager)
  * 		-View Previous Tickets (Employee)
- * 
- * Optional Functionality To-Do:
  * 		-Add Reimbursement Types (DB architecture made)
  * 		-Manager Changing Roles
+ * 
+ * Required Functionality To-Do:
+ * 		
+ * 
+ * Optional Functionality To-Do:
+ * 		
  * 		-Employee Adding Receipt Images
  * 		-Account Page
  */
@@ -49,6 +50,7 @@ public class MainApp {
 		
 		//View tickets, manager view or employee view depends on ID
 		app.get("/view", ERSController.view);
+		
 		app.get("/view/pending", ERSController.viewPending);
 		app.get("/cookie", ERSController.testCookie);
 		app.get("/logout",  ERSController.logout);
@@ -57,6 +59,7 @@ public class MainApp {
 		app.post("/register", ERSController.register);
 		app.post("/login", ERSController.login);
 		app.post("/submit", ERSController.newReimb);
+		app.post("/promote/{id}", ERSController.promoteEmployee);
 		
 		//PUT Methods
 		app.put("/process", ERSController.managerProcess);

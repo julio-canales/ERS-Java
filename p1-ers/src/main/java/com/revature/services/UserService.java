@@ -15,4 +15,5 @@ public interface UserService {
 	
 	int getUserRole (int id);
 	
+	boolean promoteUser(int id);
 }

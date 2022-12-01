@@ -149,9 +149,32 @@ public class UserDAOImpl implements UserDAO {
 			return userList;
 			
 		} catch (SQLException e) {
-			logger.error("TicketDAOImpl - getUsers " + e.getMessage());
+			logger.error("UserDAOImpl - getUsers " + e.getMessage());
 		}
 		return null;
+	}
+
+	@Override
+	public boolean promoteUserToManager(int id) {
+		try {
+			String sql = "UPDATE ers_users SET user_role_id=2 WHERE ers_user_id=?";
+			
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			int success = pstmt.executeUpdate();
+			
+			if (success > 0) {
+				return true;
+			} else {
+				logger.error("UserDAOImpl - promoteUser- Error User ID " + id + " could not update.");
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			logger.error("UserDAOImpl - promoteUser " + e.getMessage());
+		}
+		return false;
 	}
 
 }

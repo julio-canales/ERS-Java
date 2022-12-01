@@ -194,7 +194,7 @@ public class ERSController {
 					//4. service call and render response
 					if (tServ.processTicket(rt, userId)) {
 						ctx.html("Successfully resolved the ticket");
-						ctx.status(HttpStatus.OK);
+						ctx.status(HttpStatus.ACCEPTED);
 					} else {
 						ctx.html("ERROR Could not update the ticket. Try again.");
 						ctx.status(HttpStatus.NOT_MODIFIED);
@@ -233,8 +233,38 @@ public class ERSController {
 				ctx.html("ERROR You must be a manager to use this feature.");
 				ctx.status(HttpStatus.UNAUTHORIZED);
 			}
+		}
+	};
+	
+	public static Handler promoteEmployee = ctx -> {
+		logger.info("User attempting to view pending requests...");
+		//1. make sure user is valid from cookie
+		String cookie = ctx.cookieStore().get("Auth-Cookie");
+		if (cookie == null) {
+			ctx.html("ERROR You must be logged in to view this page.");
+			ctx.status(HttpStatus.UNAUTHORIZED);
 			
-			
+		} else {
+			//2. make sure user is a manager
+			int userId = Integer.parseInt(cookie.replace(cookieAppend, ""));
+			if (uServ.getUserRole(userId) != DatabaseId.MANAGER) {
+				ctx.html("ERROR You must be a manager to use this feature.");
+				ctx.status(HttpStatus.UNAUTHORIZED);
+			} else {
+				int empId = Integer.parseInt(ctx.pathParam("id"));
+				if (uServ.getUserRole(empId) != DatabaseId.EMPLOYEE) {
+					ctx.html("ERROR Employee doesn't exist or is already a manager.");
+					ctx.status(HttpStatus.BAD_REQUEST);
+				} else {
+					if (uServ.promoteUser(empId)) {
+						ctx.html("User was successfully promoted to a manager.");
+						ctx.status(HttpStatus.ACCEPTED);
+					} else {
+						ctx.html("ERROR Could not promote the user. Try again.");
+						ctx.status(HttpStatus.NOT_MODIFIED);
+					}
+				}
+			}
 		}
 	};
 }

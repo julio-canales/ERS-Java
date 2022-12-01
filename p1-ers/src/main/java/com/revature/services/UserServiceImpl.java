@@ -92,5 +92,17 @@ public class UserServiceImpl implements UserService {
 	
 		return foundUser.getRole();
 	}
+	@Override
+	public boolean promoteUser(int id) {
+		logger.info("UserServiceImpl::promoteUser() called. "
+				+ "Promoting user with ID "+ id);
+		if (userDAO.promoteUserToManager(id)) {
+			logger.info("User successfully promoted to manager.");
+			return true;
+		} else {
+			logger.error("Could not promote user.");
+		}
+		return false;
+	}
 
 }
