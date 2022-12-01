@@ -21,11 +21,11 @@ public class JDBCConnectionUtil {
 			//%s in a string allows us to make a cleaner concatenation within a string
 			//The database URL, username, and password already exist in the environment variables for better security
 			//than hard coding into the actual method.
-			logger.info("Making a DB connection with creds: \nURL: %s \nUsername: %s \nPassword %s",
+			logger.info(String.format("Making a DB connection with creds: \nURL: %s \nUsername: %s \nPassword %s \nSchema: p1_ers",
 					System.getenv("DB_URL"),
 					System.getenv("DB_USERNAME"),
-					System.getenv("DB_PASSWORD"));
-			conn = DriverManager.getConnection(System.getenv("DB_URL"),
+					System.getenv("DB_PASSWORD")));
+			conn = DriverManager.getConnection(System.getenv("DB_URL") + "?currentSchema=p1_ers",
 					System.getenv("DB_USERNAME"),
 					System.getenv("DB_PASSWORD"));
 		} catch (SQLException e) {

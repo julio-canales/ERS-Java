@@ -8,9 +8,11 @@ import com.revature.util.dto.TicketInput;
 
 public interface TicketService {
 	
-	boolean newTicket(TicketInput rt, int authorId);
+	boolean newTicket(TicketInput ti,  int authorId);
 	
 	ArrayList<ReimburseTicket> managerView();
+	
+	ArrayList<ReimburseTicket> viewPending();
 	
 	ArrayList<ReimburseTicket> employeeView(int id);
 	

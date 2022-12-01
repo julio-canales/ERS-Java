@@ -5,10 +5,14 @@ import com.revature.util.dto.LoginTemplate;
 
 public interface UserService {
 	
+	boolean usernameTaken (String username);
+	
 	boolean registerUser(User user);
 	
-	boolean loginUser(LoginTemplate attempt);
+	int loginUser(LoginTemplate attempt);
 	
 	User userFromUsername(String username);
+	
+	int getUserRole (int id);
 	
 }

@@ -23,7 +23,7 @@ public class ReimburseTicket {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReimburseTicket(double amount, LocalDateTime submitted, String description, int authorId, int typeId) {
+	public ReimburseTicket(double amount, String description, int authorId, int typeId) {
 		super();
 		this.amount = amount;
 		this.description = description;

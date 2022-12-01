@@ -47,7 +47,8 @@ public class UserDAOImpl implements UserDAO {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			
 			//Returning the user ID
-			return rs.getInt("id");
+			rs.next();
+			return rs.getInt("ers_user_id");
 			
 		} catch (SQLException e) {
 			logger.error("UserDAOImpl - createUser " + e.getMessage());

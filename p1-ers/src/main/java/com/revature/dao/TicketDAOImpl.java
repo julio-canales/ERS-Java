@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.revature.models.ReimburseTicket;
+import com.revature.util.DatabaseId;
 import com.revature.util.JDBCConnectionUtil;
 
 public class TicketDAOImpl implements TicketDAO {
@@ -38,6 +39,7 @@ public class TicketDAOImpl implements TicketDAO {
 			pstmt.setString(3, rt.getDescription());
 			pstmt.setInt(4, rt.getAuthorId());
 			pstmt.setInt(5, rt.getStatusId());
+			pstmt.setInt(6, DatabaseId.PENDING);
 			
 			//Executing the SQL statement
 			pstmt.executeUpdate();
@@ -46,7 +48,8 @@ public class TicketDAOImpl implements TicketDAO {
 			ResultSet rs = pstmt.getGeneratedKeys();
 			
 			//Returning the ticket ID
-			return rs.getInt("id");
+			rs.next();
+			return rs.getInt("reimb_id");
 			
 		} catch (SQLException e) {
 			logger.error("TicketDAOImpl - createTicket " + e.getMessage());
@@ -220,13 +223,13 @@ public class TicketDAOImpl implements TicketDAO {
 	public boolean resolveTicket(ReimburseTicket rt) {
 		try {
 			//SQL select statement only updating resolved fields and status.
-			String sql = "UPDATE ers_reimbursement SET reimb_resolved=?, reimb_resolver=?, reimb_status_id=? WHERE id=?";
+			String sql = "UPDATE ers_reimbursement SET reimb_resolved=?, reimb_resolver=?, reimb_status_id=? WHERE reimb_id=?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			//Set the values from the passed ReimburseTicket
 			pstmt.setTimestamp(1, Timestamp.valueOf(rt.getResolved()));
 			pstmt.setInt(2, rt.getResolverId());
-			pstmt.setInt(2, rt.getStatusId());
+			pstmt.setInt(3, rt.getStatusId());
 			pstmt.setInt(4, rt.getId());
 			
 			//If a value is returned then it successfully updated

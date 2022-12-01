@@ -36,34 +36,61 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean loginUser(LoginTemplate attempt) {
-		logger.info("UserServiceImpl::loginUser() called. Attempting to login user " + attempt.getUsername() + "...");
+	public int loginUser(LoginTemplate attempt) {
+		logger.info("UserServiceImpl::loginUser() called. "
+				+ "Attempting to login user " + attempt.getUsername() + "...");
 		
 		User foundUser = userDAO.getUserByUsername(attempt.getUsername());
+		logger.info("userDAO found user "+ foundUser);
 		
-		if (foundUser == null) {
+		if (foundUser == null || foundUser.getUsername() == null) {
 			logger.error("User does not exist.");
-		} else if (foundUser.getPassword() == attempt.getPassword()) {
+		} else if (foundUser.getPassword().equals(attempt.getPassword())){
 			logger.info("User successfully logged in.");
-			return true;
+			return foundUser.getId();
 		}
 		
-		return false;
+		return 0;
 	}
 
 	@Override
 	public User userFromUsername(String username) {
-		logger.info("UserServiceImpl::userFromUsername() called. Attempting to get info of user " + username + "...");
+		logger.info("UserServiceImpl::userFromUsername() called. "
+				+ "Attempting to get info of user " + username + "...");
 		
 		User foundUser = userDAO.getUserByUsername(username);
 		
 		if (foundUser != null) {
 			logger.info("User successfully found.");
 		} else {
-			logger.info("User could not be found.");
+			logger.error("User could not be found.");
 		}
 		
 		return foundUser;
+	}
+	@Override
+	public boolean usernameTaken(String username) {
+		logger.info("UserServiceImpl::userTaken() called. "
+				+ "Verifying username "+ username +" is not in use...");
+		if (userDAO.getUserByUsername(username).getUsername() == null) {
+			logger.info("Username is not in use.");
+			return false;
+		} else {
+			logger.error("Username is already taken");
+		}
+		
+		return true;
+	}
+	@Override
+	public int getUserRole(int id) {
+		logger.info("UserServiceImpl::checkUserRole() called. "
+				+ "Checking role of user with ID "+ id);
+		
+		User foundUser = userDAO.getUserById(id);
+		
+		logger.info("User has role ID of " + foundUser.getRole());
+	
+		return foundUser.getRole();
 	}
 
 }

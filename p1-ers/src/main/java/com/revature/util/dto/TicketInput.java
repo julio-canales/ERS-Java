@@ -5,18 +5,25 @@ public class TicketInput {
 	
 	double amount;
 	String description;
-	String status;
+	String type;
 	
 	public TicketInput() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TicketInput(double amount, String description, String status) {
+	public TicketInput(double amount, String description, String type) {
 		super();
 		this.amount = amount;
 		this.description = description;
-		this.status = status;
+		this.type = type;
+	}
+	
+	public TicketInput(String amount, String description, String type) {
+		super();
+		this.amount = Integer.parseInt(amount);
+		this.description = description;
+		this.type = type;
 	}
 
 	public double getAmount() {
@@ -35,17 +42,17 @@ public class TicketInput {
 		this.description = description;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getType() {
+		return type;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "TicketInput [amount=" + amount + ", description=" + description + ", status=" + status + "]";
+		return "TicketInput [amount=" + amount + ", description=" + description + ", type=" + type + "]";
 	}
 	
 }
