@@ -236,6 +236,7 @@ public class ERSController {
 			//3. render response
 			if (!ticketList.isEmpty()) {
 				ctx.json(ticketList);
+				ctx.status(HttpStatus.OK);
 			} else {
 				ctx.html("ERROR Could not load tickets.");
 				ctx.status(HttpStatus.NOT_FOUND); 
