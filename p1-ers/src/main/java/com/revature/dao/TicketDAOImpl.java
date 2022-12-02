@@ -218,6 +218,48 @@ public class TicketDAOImpl implements TicketDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public ArrayList<ReimburseTicket> getTicketsByStatusAuthor(int statusId, int userId) {
+		try {
+			//SQL select statement
+			String sql = "SELECT * FROM ers_reimbursement WHERE reimb_author =? AND reimb_status_id =?";
+			
+			//Putting the SQL within a PreparedStatement then adding the value of userId to the statement
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userId);
+			pstmt.setInt(2, statusId);
+			
+			//The returned ResultSet returns all rows so we must map each and put them into an ArrayList
+			ResultSet rs = pstmt.executeQuery();
+			
+			ArrayList<ReimburseTicket> ticketList = new ArrayList<>();
+			
+			while(rs.next()) {
+				ReimburseTicket target = new ReimburseTicket();
+				target.setId(rs.getInt("reimb_id"));
+				target.setAmount(rs.getDouble("reimb_amount"));
+				target.setSubmitted(rs.getTimestamp("reimb_submitted").toLocalDateTime());
+				target.setDescription(rs.getString("reimb_description"));
+				target.setAuthorId(rs.getInt("reimb_author"));
+				target.setStatusId(rs.getInt("reimb_status_id"));
+				target.setTypeId(rs.getInt("reimb_type_id"));
+				
+				//If the ticket has been resolved, it would return a value for resolver.
+				if (rs.getInt("reimb_resolver") != 0) {
+					target.setResolved(rs.getTimestamp("reimb_resolved").toLocalDateTime());
+					target.setResolverId(rs.getInt("reimb_resolver"));
+				}
+				ticketList.add(target);
+			}
+			
+			return ticketList;
+			
+		} catch (SQLException e) {
+			logger.error("TicketDAOImpl - getTicketsByAuthor " + e.getMessage());
+		}
+		return null;
+	}
 
 	@Override
 	public boolean resolveTicket(ReimburseTicket rt) {

@@ -115,5 +115,37 @@ public class TicketServiceImpl implements TicketService {
 		
 		return ticketDAO.resolveTicket(rt);
 	}
+	@Override
+	public ArrayList<ReimburseTicket> managerByStatus(String status) {
+		logger.info("TicketServiceImpl::managerByStatus() called. "
+				+ "Generating list of all " + status + " tickets...");
+		int statusId;
+		
+		if (status.equalsIgnoreCase("pending")) {
+			statusId = DatabaseId.PENDING;
+		} else if (status.equalsIgnoreCase("approved")) {
+			statusId = DatabaseId.APPROVED;
+		} else {
+			statusId = DatabaseId.DENIED;
+		}
+		return ticketDAO.getTicketsByStatus(statusId);
+	}
+	@Override
+	public ArrayList<ReimburseTicket> employeeByStatus(String status, int userId) {
+		logger.info("TicketServiceImpl::employeeView() called. "
+				+ "Generating list of "+ status +" tickets created by User ID " + userId +"...");
+		
+		int statusId;
+		
+		if (status.equalsIgnoreCase("pending")) {
+			statusId = DatabaseId.PENDING;
+		} else if (status.equalsIgnoreCase("approved")) {
+			statusId = DatabaseId.APPROVED;
+		} else {
+			statusId = DatabaseId.DENIED;
+		}
+		
+		return ticketDAO.getTicketsByStatusAuthor(statusId, userId);
+	}
 
 }

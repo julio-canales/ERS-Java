@@ -162,7 +162,7 @@ public class ERSController {
 				ticketList = tServ.employeeView(userId);
 			}
 			
-			//4. render response
+			//3. render response
 			if (!ticketList.isEmpty()) {
 				ctx.json(ticketList);
 			} else {
@@ -207,8 +207,8 @@ public class ERSController {
 		}
 	};
 	
-	public static Handler viewPending = ctx -> {
-		logger.info("User attempting to view pending requests...");
+	public static Handler viewByStatus = ctx -> {
+		logger.info("User attempting to view requests by status...");
 		//1. make sure user is valid from cookie
 		String cookie = ctx.cookieStore().get("Auth-Cookie");
 		if (cookie == null) {
@@ -216,23 +216,31 @@ public class ERSController {
 			ctx.status(HttpStatus.UNAUTHORIZED);
 			
 		} else {
-			//2. make sure user is a manager
+			//2. check string in url
+			String status = ctx.pathParam("status");
+			if (!(status == "pending" || status == "approved" || status == "denied")) {
+				ctx.html("ERROR Only accepting values: pending, approved, or denied. Try again.");
+				ctx.status(HttpStatus.BAD_REQUEST);
+			}
+				
+			//3. generate list based on role
 			int userId = Integer.parseInt(cookie.replace(cookieAppend, ""));
+			ArrayList<ReimburseTicket> ticketList;
 			
 			if (uServ.getUserRole(userId) == DatabaseId.MANAGER) {
-				ArrayList<ReimburseTicket> ticketList;
-				ticketList = tServ.viewPending();
-				//4. render response
-				if (!ticketList.isEmpty()) {
-					ctx.json(ticketList);
-				} else {
-					ctx.html("ERROR Could not find pending tickets.");
-					ctx.status(HttpStatus.NOT_FOUND); 
-				}
+				ticketList = tServ.managerByStatus(status);
 			} else {
-				ctx.html("ERROR You must be a manager to use this feature.");
-				ctx.status(HttpStatus.UNAUTHORIZED);
+				ticketList = tServ.employeeByStatus(status, userId);
 			}
+			
+			//3. render response
+			if (!ticketList.isEmpty()) {
+				ctx.json(ticketList);
+			} else {
+				ctx.html("ERROR Could not load tickets.");
+				ctx.status(HttpStatus.NOT_FOUND); 
+			}
+			
 		}
 	};
 	

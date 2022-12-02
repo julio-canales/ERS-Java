@@ -51,7 +51,7 @@ public class MainApp {
 		//View tickets, manager view or employee view depends on ID
 		app.get("/view", ERSController.view);
 		
-		app.get("/view/pending", ERSController.viewPending);
+		app.get("/view/{status}", ERSController.viewByStatus);
 		app.get("/cookie", ERSController.testCookie);
 		app.get("/logout",  ERSController.logout);
 		

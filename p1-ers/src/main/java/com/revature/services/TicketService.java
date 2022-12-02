@@ -16,6 +16,10 @@ public interface TicketService {
 	
 	ArrayList<ReimburseTicket> employeeView(int id);
 	
+	ArrayList<ReimburseTicket> managerByStatus(String status);
+	
+	ArrayList<ReimburseTicket> employeeByStatus(String status, int userId);
+	
 	boolean isPending(int id);
 	
 	boolean processTicket(ResolveTicket resTick, int resolverId);

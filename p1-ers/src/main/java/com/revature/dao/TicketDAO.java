@@ -16,5 +16,7 @@ public interface TicketDAO {
 	
 	ArrayList<ReimburseTicket> getTicketsByAuthor(int userId);
 	
+	public ArrayList<ReimburseTicket> getTicketsByStatusAuthor(int statusId, int userId);
+	
 	boolean resolveTicket (ReimburseTicket rt);
 }
