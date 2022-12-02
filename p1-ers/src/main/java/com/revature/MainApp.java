@@ -59,9 +59,10 @@ public class MainApp {
 		app.post("/register", ERSController.register);
 		app.post("/login", ERSController.login);
 		app.post("/submit", ERSController.newReimb);
-		app.post("/promote/{id}", ERSController.promoteEmployee);
+		
 		
 		//PUT Methods
 		app.put("/process", ERSController.managerProcess);
+		app.put("/promote/{id}", ERSController.promoteEmployee);
 	}
 }

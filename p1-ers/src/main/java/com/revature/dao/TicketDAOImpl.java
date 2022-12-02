@@ -39,7 +39,7 @@ public class TicketDAOImpl implements TicketDAO {
 			pstmt.setString(3, rt.getDescription());
 			pstmt.setInt(4, rt.getAuthorId());
 			pstmt.setInt(5, rt.getStatusId());
-			pstmt.setInt(6, DatabaseId.PENDING);
+			pstmt.setInt(6, rt.getTypeId());
 			
 			//Executing the SQL statement
 			pstmt.executeUpdate();
